@@ -6,20 +6,47 @@ public class Stacks {
 
 	public static void main(String[] args) {
 		
-		Stack<Integer> stack = new Stack<Integer>();
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-		stack.push(4);
-		stack.push(5);
+		String s = "{}";
+		String s1= "({})";
+		String s2 = "[({)]";
 		
-		System.out.println(stack);
+		System.out.println(validParanthesis(s2));
 		
-		int len = stack.size();
+//		Stack<Integer> stack = new Stack<Integer>();
+//		stack.push(1);
+//		stack.push(2);
+//		stack.push(3);
+//		stack.push(4);
+//		stack.push(5);
+//		
+//		System.out.println(stack);
+//		
+//		int len = stack.size();
+//		
+//		deleteMid(stack, len, 0);
+//		
+//		System.out.println(stack);
+	}
+	
+	static boolean validParanthesis(String s) {
+		Stack<Character> paranthesis = new Stack<Character>();
 		
-		deleteMid(stack, len, 0);
-		
-		System.out.println(stack);
+		for (char c: s.toCharArray()) {
+			if ( c == '(' || c == '{' || c == '[') {
+				paranthesis.push(c);
+			} else {
+				if (paranthesis.isEmpty()) {
+					return false;
+				}
+				char stackTop = paranthesis.peek();
+				if ((c == ')' && stackTop == '(') || (c==']' && stackTop == '[') || (c=='}' && stackTop=='{')) {
+					paranthesis.pop();
+				} else {
+					return false;
+				}
+			}
+		}
+		return paranthesis.isEmpty();
 	}
 	
 	static void deleteMid(Stack<Integer> stack, int n, int curr ) {
